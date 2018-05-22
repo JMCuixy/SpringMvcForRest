@@ -30,6 +30,9 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <!--默认跳转到首页 -->
+    <mvc:view-controller path="/" view-name="redirect:/index.html"/>
+
     <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/" />
         <property name="suffix" value=".jsp" />
