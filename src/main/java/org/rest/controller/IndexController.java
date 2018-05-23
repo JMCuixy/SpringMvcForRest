@@ -1,12 +1,16 @@
 package org.rest.controller;
 
+import org.rest.exception.UserDTOException;
 import org.rest.model.UserDTO;
+import org.rest.service.UserService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +19,8 @@ import java.util.List;
  */
 @Controller
 public class IndexController {
+
+    private UserService userService;
 
     @RequestMapping("index.html")
     public String index() {
@@ -53,5 +59,62 @@ public class IndexController {
     public List<UserDTO> userDTOList(@RequestBody List<UserDTO> userDTOList) {
         return userDTOList;
     }
+
+
+    /**
+     * 作为@ResponseBody的取决方案，控制器可以访问ResponseEntity对象，包含响应相关的元数据（头部信息和状态码）
+     *
+     * @param name
+     * @return
+     */
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    public ResponseEntity<UserDTO> getUserByName(@PathVariable String name) {
+        UserDTO userByName = userService.getUserByName(name);
+        HttpStatus httpStatus = userByName == null ? HttpStatus.NOT_FOUND : HttpStatus.OK;
+        return new ResponseEntity<>(userByName, httpStatus);
+    }
+
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    @ResponseBody
+    public UserDTO getUserDtoByName(@PathVariable String name) {
+        UserDTO userByName = userService.getUserByName(name);
+        if (userByName == null) {
+            throw new UserDTOException(name + "用户不存在");
+        }
+        return userByName;
+    }
+
+    /**
+     * 异常处理类，捕获UserDTOException，并进行处理
+     *
+     * @param userDTOException
+     * @return
+     */
+    @ExceptionHandler(UserDTOException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public UserDTOException handleUserDTOException(UserDTOException userDTOException) {
+        return userDTOException;
+    }
+
+    /**
+     * 给返回值设置头信息
+     *
+     * @param userDTO
+     * @param ucb
+     * @return
+     */
+    @RequestMapping(
+            value = "listUserDTO"
+            , method = RequestMethod.POST
+            , consumes = "application/json")
+    public ResponseEntity<UserDTO> saveUserDto(@RequestBody UserDTO userDTO, UriComponentsBuilder ucb) {
+        UserDTO user = userService.saveUser(userDTO);
+        HttpHeaders headers = new HttpHeaders();
+        URI uri = ucb.path("/").path(user.getName()).build().toUri();
+        headers.setLocation(uri);
+        ResponseEntity<UserDTO> userDTOResponseEntity = new ResponseEntity<>(user, headers, HttpStatus.CREATED);
+        return userDTOResponseEntity;
+    }
+
 
 }
