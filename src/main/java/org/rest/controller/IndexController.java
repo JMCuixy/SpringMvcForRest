@@ -52,7 +52,7 @@ public class IndexController {
      * @return
      */
     @RequestMapping(
-            value = "listUserDTO"
+            value = "userDTOList"
             , method = RequestMethod.POST
             , consumes = "application/json")
     @ResponseBody
@@ -67,14 +67,15 @@ public class IndexController {
      * @param name
      * @return
      */
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "{name}", method = RequestMethod.GET)
     public ResponseEntity<UserDTO> getUserByName(@PathVariable String name) {
         UserDTO userByName = userService.getUserByName(name);
         HttpStatus httpStatus = userByName == null ? HttpStatus.NOT_FOUND : HttpStatus.OK;
         return new ResponseEntity<>(userByName, httpStatus);
     }
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "user/{name}", method = RequestMethod.GET)
     @ResponseBody
     public UserDTO getUserDtoByName(@PathVariable String name) {
         UserDTO userByName = userService.getUserByName(name);

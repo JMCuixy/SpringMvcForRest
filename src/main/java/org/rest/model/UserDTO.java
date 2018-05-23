@@ -1,6 +1,5 @@
 package org.rest.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 /**
  * Created by XiuYin.Cui on 2018/5/22.
