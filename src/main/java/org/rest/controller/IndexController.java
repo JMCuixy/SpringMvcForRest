@@ -27,6 +27,7 @@ public class IndexController {
         return "index";
     }
 
+
     /**
      * 编写REST端点，@ResponseBody 将返回的对象作为资源发送给客户端，并将其转换为客户端可接受的表述形式
      *
@@ -44,6 +45,7 @@ public class IndexController {
         list.add(userDTO3);
         return list;
     }
+
 
     /**
      * 编写REST端点，@RequestBody 接收客户端的资源对象，并将客户端的资源表述转换为对象。
@@ -85,6 +87,7 @@ public class IndexController {
         return userByName;
     }
 
+
     /**
      * 异常处理类，捕获UserDTOException，并进行处理
      *
@@ -96,6 +99,7 @@ public class IndexController {
     public UserDTOException handleUserDTOException(UserDTOException userDTOException) {
         return userDTOException;
     }
+
 
     /**
      * 给返回值设置头信息
