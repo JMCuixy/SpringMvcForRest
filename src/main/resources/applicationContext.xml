@@ -39,5 +39,7 @@
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
     </bean>
 
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+
 
 </beans>

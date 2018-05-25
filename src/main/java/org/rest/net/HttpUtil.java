@@ -6,7 +6,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
+import org.rest.model.Area;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.io.IOException;
 /**
  * Created by XiuYin.Cui on 2018/5/24.
  */
+@Component
 public class HttpUtil {
 
     private final HttpClient httpClient = HttpClients.createDefault();
@@ -38,5 +41,14 @@ public class HttpUtil {
         }
 
     }
+
+    /*get请求*/
+
+    /*getForObject*/
+    public Area getForObject() {
+        return restTemplate.getForObject("http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0", Area.class);
+
+    }
+
 
 }
