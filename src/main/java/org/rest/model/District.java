@@ -3,14 +3,14 @@ package org.rest.model;
 import java.util.List;
 
 /**
- * Created by XiuYin.Cui on 2018/5/25.
+ * Created by XiuYin.Cui on 2018/5/28.
  */
-public class City {
+public class District {
 
     /**
-     * 城市编码
+     * 城市编码 (没有值得时候返回 [] ,有一个值得时候 返回字符串"010" ,有两个值得时候 返回["010","011"])
      */
-    private String citycode;
+    private Object citycode;
 
     /**
      * 区域编码
@@ -40,13 +40,13 @@ public class City {
     /**
      * districts
      */
-    private List<City> districts;
+    private List<District> districts;
 
-    private City(){
+    private District() {
 
     }
 
-    public City(String citycode, String adcode, String name, String polyline, String center, String level, List<City> districts) {
+    public District(Object citycode, String adcode, String name, String polyline, String center, String level, List<District> districts) {
         this.citycode = citycode;
         this.adcode = adcode;
         this.name = name;
@@ -56,11 +56,11 @@ public class City {
         this.districts = districts;
     }
 
-    public String getCitycode() {
+    public Object getCitycode() {
         return citycode;
     }
 
-    public void setCitycode(String citycode) {
+    public void setCitycode(Object citycode) {
         this.citycode = citycode;
     }
 
@@ -104,11 +104,24 @@ public class City {
         this.level = level;
     }
 
-    public List<City> getDistricts() {
+    public List<District> getDistricts() {
         return districts;
     }
 
-    public void setDistricts(List<City> districts) {
+    public void setDistricts(List<District> districts) {
         this.districts = districts;
+    }
+
+    @Override
+    public String toString() {
+        return "District{" +
+                "citycode=" + citycode +
+                ", adcode='" + adcode + '\'' +
+                ", name='" + name + '\'' +
+                ", polyline='" + polyline + '\'' +
+                ", center='" + center + '\'' +
+                ", level='" + level + '\'' +
+                ", districts=" + districts +
+                '}';
     }
 }

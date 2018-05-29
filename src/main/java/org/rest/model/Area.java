@@ -1,6 +1,7 @@
 package org.rest.model;
 
-import java.awt.image.AreaAveragingScaleFilter;
+import org.springframework.context.annotation.Scope;
+
 import java.util.List;
 
 /**
@@ -25,6 +26,11 @@ public class Area {
     private String infocode;
 
     /**
+     *
+     */
+    private String count;
+
+    /**
      * 建议结果列表
      */
     private Suggestion suggestion;
@@ -32,13 +38,13 @@ public class Area {
     /**
      * 行政区列表
      */
-    private List<City> districts;
+    private List<District> districts;
 
     public Area(){
 
     }
 
-    public Area(String status, String info, String infocode, Suggestion suggestion, List<City> districts) {
+    public Area(String status, String info, String infocode, Suggestion suggestion, List<District> districts) {
         this.status = status;
         this.info = info;
         this.infocode = infocode;
@@ -70,6 +76,14 @@ public class Area {
         this.infocode = infocode;
     }
 
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
     public Suggestion getSuggestion() {
         return suggestion;
     }
@@ -78,11 +92,11 @@ public class Area {
         this.suggestion = suggestion;
     }
 
-    public List<City> getDistricts() {
+    public List<District> getDistricts() {
         return districts;
     }
 
-    public void setDistricts(List<City> districts) {
+    public void setDistricts(List<District> districts) {
         this.districts = districts;
     }
 

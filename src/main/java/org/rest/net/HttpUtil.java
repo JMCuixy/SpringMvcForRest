@@ -7,17 +7,22 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.rest.model.Area;
+import org.rest.model.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by XiuYin.Cui on 2018/5/24.
  */
 @Component
 public class HttpUtil {
+
 
     private final HttpClient httpClient = HttpClients.createDefault();
 
@@ -42,12 +47,46 @@ public class HttpUtil {
 
     }
 
-    /*get请求*/
+    /*GET请求*/
 
-    /*getForObject*/
+
+    /**
+     * getForObject
+     * <p>
+     * http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0
+     *
+     * @return
+     */
     public Area getForObject() {
-        return restTemplate.getForObject("http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0", Area.class);
+        String host = "http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0";
+        return restTemplate.getForObject(host, Area.class);
+    }
 
+
+    public Area getForObject(String key) {
+        String host = "http://restapi.amap.com/v3/config/district?key={key}";
+        return restTemplate.getForObject(host, Area.class, key);
+    }
+
+    public Area getForObject(Map<String, String> map) {
+        String host = "http://restapi.amap.com/v3/config/district?key={key}";
+        return restTemplate.getForObject(host, Area.class, map);
+    }
+
+    /*getForEntity*/
+
+
+    public <T> ResponseEntity<T> getForEntity(Class<T> clazz) {
+        String host = "http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0";
+        return restTemplate.getForEntity(host, clazz);
+
+    }
+
+    /*PUT请求*/
+    /*PUT请求 接受一个URI 用来标识服务器上的资源位置，另外还接受一个对象，代表资源的Java表述*/
+
+    public void put(UserDTO userDTO) {
+        restTemplate.put("http://localhost:8080/updateUser", userDTO);
     }
 
 

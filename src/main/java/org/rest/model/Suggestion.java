@@ -43,4 +43,12 @@ public class Suggestion {
     public void setCites(List<String> cites) {
         this.cites = cites;
     }
+
+    @Override
+    public String toString() {
+        return "Suggestion{" +
+                "keywords=" + keywords +
+                ", cites=" + cites +
+                '}';
+    }
 }
