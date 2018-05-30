@@ -93,8 +93,16 @@ public class HttpUtil {
         restTemplate.put("http://localhost:8080/rest/updateDto", userDTO);
     }
 
+
     public void put(Map<String, Object> map) {
         restTemplate.put("http://localhost:8080/rest/updateDto?name={name}&password={password}&age={age}&valid={valid}", null, map);
+    }
+
+    /*DELETE资源*/
+    /*delete()方法是所有RestTemplate中最简单的。你唯一要提供的就是要删除资源的URL*/
+
+    public void delete(String uuid) {
+        restTemplate.delete("http://localhost:8080/rest/delete?uuid={uuid}", uuid);
     }
 
 

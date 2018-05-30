@@ -36,4 +36,14 @@ public class HandleRequest {
     public UserDTO handlePutRequest(@ModelAttribute UserDTO userDTO) {
         return userDTO;
     }
+
+
+    /**
+     * 删除资源
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @ResponseBody
+    public String handleDeleteRequest(@RequestParam String uuid) {
+        return uuid;
+    }
 }
