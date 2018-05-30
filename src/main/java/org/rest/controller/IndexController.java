@@ -18,6 +18,7 @@ import java.util.List;
  * Created by XiuYin.Cui on 2018/5/22.
  */
 @Controller
+@RequestMapping("index/")
 public class IndexController {
 
     private UserService userService;

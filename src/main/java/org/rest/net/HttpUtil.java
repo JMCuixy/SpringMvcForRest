@@ -85,8 +85,16 @@ public class HttpUtil {
     /*PUT请求*/
     /*PUT请求 接受一个URI 用来标识服务器上的资源位置，另外还接受一个对象，代表资源的Java表述*/
 
+    public void put(String user) {
+        restTemplate.put("http://localhost:8080/rest/update?user={user}", null, user);
+    }
+
     public void put(UserDTO userDTO) {
-        restTemplate.put("http://localhost:8080/updateUser", userDTO);
+        restTemplate.put("http://localhost:8080/rest/updateDto", userDTO);
+    }
+
+    public void put(Map<String, Object> map) {
+        restTemplate.put("http://localhost:8080/rest/updateDto?name={name}&password={password}&age={age}&valid={valid}", null, map);
     }
 
 
