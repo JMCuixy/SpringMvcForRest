@@ -48,8 +48,6 @@ public class HttpUtil {
     }
 
     /*GET请求*/
-
-
     /**
      * getForObject
      * <p>
@@ -103,6 +101,39 @@ public class HttpUtil {
 
     public void delete(String uuid) {
         restTemplate.delete("http://localhost:8080/rest/delete?uuid={uuid}", uuid);
+    }
+
+
+    /*POST请求*/
+    /**
+     * getForObject
+     * <p>
+     * http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0
+     *
+     * @return
+     */
+    public Area postForObject() {
+        String host = "http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0";
+        return restTemplate.getForObject(host, Area.class);
+    }
+
+
+    public Area postForObject(String key) {
+        String host = "http://restapi.amap.com/v3/config/district?key={key}";
+        return restTemplate.getForObject(host, Area.class, key);
+    }
+
+    public Area postForObject(Map<String, String> map) {
+        String host = "http://restapi.amap.com/v3/config/district?key={key}";
+        return restTemplate.getForObject(host, Area.class, map);
+    }
+
+    /*getForEntity*/
+
+    public <T> ResponseEntity<T> postForEntity(Class<T> clazz) {
+        String host = "http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0";
+        return restTemplate.getForEntity(host, clazz);
+
     }
 
 
