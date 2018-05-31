@@ -48,6 +48,7 @@ public class HttpUtil {
     }
 
     /*GET请求*/
+
     /**
      * getForObject
      * <p>
@@ -105,35 +106,25 @@ public class HttpUtil {
 
 
     /*POST请求*/
+
     /**
-     * getForObject
+     * postForObject
      * <p>
-     * http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0
+     * http://localhost:8080/rest/add
      *
      * @return
      */
-    public Area postForObject() {
-        String host = "http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0";
-        return restTemplate.getForObject(host, Area.class);
+    public UserDTO postForObject(UserDTO userDTO) {
+        String host = "http://localhost:8080/rest/add";
+        return restTemplate.postForObject(host, userDTO, UserDTO.class);
     }
 
 
-    public Area postForObject(String key) {
-        String host = "http://restapi.amap.com/v3/config/district?key={key}";
-        return restTemplate.getForObject(host, Area.class, key);
-    }
+    /*postForEntity*/
 
-    public Area postForObject(Map<String, String> map) {
-        String host = "http://restapi.amap.com/v3/config/district?key={key}";
-        return restTemplate.getForObject(host, Area.class, map);
-    }
-
-    /*getForEntity*/
-
-    public <T> ResponseEntity<T> postForEntity(Class<T> clazz) {
-        String host = "http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0";
-        return restTemplate.getForEntity(host, clazz);
-
+    public ResponseEntity<UserDTO> postForEntity(UserDTO userDTO) {
+        String host = "http://localhost:8080/rest/add";
+        return restTemplate.postForEntity(host, userDTO, UserDTO.class);
     }
 
 
