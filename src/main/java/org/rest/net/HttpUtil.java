@@ -13,8 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Map;
 
 /**
@@ -126,6 +126,15 @@ public class HttpUtil {
         String host = "http://localhost:8080/rest/add";
         return restTemplate.postForEntity(host, userDTO, UserDTO.class);
     }
+
+    /*postForLocation*/
+
+    public URI postForLocation(UserDTO userDTO) {
+        String host = "http://localhost:8080/rest/add";
+        return restTemplate.postForLocation(host, userDTO);
+    }
+
+
 
 
 }

@@ -3,11 +3,15 @@ package org.rest.controller;
 import org.rest.model.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
 
 /**
  * Created by XiuYin.Cui on 2018/5/28.
@@ -58,10 +62,11 @@ public class HandleRequest {
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseBody
-    public UserDTO handlePostRequest(@RequestBody UserDTO userDTO, HttpServletRequest request) {
-        String name = request.getParameter("name");
-        LOGGER.info(userDTO.toString());
-        return userDTO;
+    public ResponseEntity<UserDTO> handlePostRequest(@RequestBody UserDTO userDTO, HttpServletRequest request, UriComponentsBuilder ucb) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        URI uri = ucb.path("/index/").path(userDTO.getName()).build().toUri();
+        httpHeaders.setLocation(uri);
+        ResponseEntity<UserDTO> userDTOResponseEntity = new ResponseEntity<>(userDTO , httpHeaders, HttpStatus.CREATED);
+        return userDTOResponseEntity;
     }
 }

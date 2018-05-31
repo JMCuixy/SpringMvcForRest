@@ -11,6 +11,7 @@ import org.springframework.http.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,5 +39,12 @@ public class PostRequestTest {
         ResponseEntity<UserDTO> userDTOResponseEntity = httpUtil.postForEntity(userDTO);
         HttpStatus statusCode = userDTOResponseEntity.getStatusCode();
         System.out.println(statusCode);
+    }
+
+    @Test
+    public void test03() {
+        UserDTO userDTO = new UserDTO("admin", "nimda", 25, true);
+        URI uri = httpUtil.postForLocation(userDTO);
+        System.out.println(uri);
     }
 }
