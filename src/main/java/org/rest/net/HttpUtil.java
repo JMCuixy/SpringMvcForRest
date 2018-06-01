@@ -9,8 +9,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.rest.model.Area;
 import org.rest.model.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -134,7 +137,23 @@ public class HttpUtil {
         return restTemplate.postForLocation(host, userDTO);
     }
 
+    /* exchange 执行请求 */
 
+    public Area exchange() {
+        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
+        multiValueMap.add("Accept", "application/json");
+
+        org.springframework.http.HttpEntity httpEntity = new org.springframework.http.HttpEntity(multiValueMap);
+
+        ResponseEntity<Area> exchange = restTemplate.exchange(
+                "http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0",
+                HttpMethod.GET,
+                httpEntity,
+                Area.class
+        );
+
+        return exchange.getBody();
+    }
 
 
 }
