@@ -60,7 +60,7 @@ public class HttpUtil {
      * @return
      */
     public Area getForObject() {
-        String host = "http://restapi.amap.com/v3/config/district?key=2c95fdacd3f72bdbfec55bd7eac7b5c0";
+        String host = "http://restapi.amap.com/v3/config/district?key=4f77b23fa82c9e4fa2e3b114b73a7cde&subdistrict=3";
         return restTemplate.getForObject(host, Area.class);
     }
 

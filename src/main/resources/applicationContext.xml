@@ -20,6 +20,7 @@
             <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
             <!--在JSON和类型化的对象或非类型化的HashMap间互相读取和写入-->
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <!--服务端支持返回的资源形式-->
                 <property name="supportedMediaTypes">
                     <list>
                         <value>text/html;charset=UTF-8</value>

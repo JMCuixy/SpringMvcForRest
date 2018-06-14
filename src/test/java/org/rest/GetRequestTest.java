@@ -1,10 +1,12 @@
 package org.rest;
 
+import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.rest.model.Area;
 import org.rest.model.District;
 import org.rest.net.HttpUtil;
+import org.rest.tool.PinYinUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,12 +28,32 @@ public class GetRequestTest {
     private HttpUtil httpUtil;
 
     @Test
-    public void test01() {
+    public void test01() throws BadHanyuPinyinOutputFormatCombination {
         Area area = httpUtil.getForObject();
         List<District> districts = area.getDistricts();
         District district = districts.get(0);
-        System.out.println(district.getName());
-        System.out.println(district.getCitycode());
+        List<District> districtList = district.getDistricts();
+        for (District d : districtList) {
+            String father = d.getAdcode();
+            List<District> list = d.getDistricts();
+            for (District di : list) {
+                String adCode = di.getAdcode();
+                String name = di.getName();
+                String center = di.getCenter();
+                String sql = "INSERT INTO yy_system_city(uuid,cityID,city,father,center,short_pinyin,full_pinyin,city_no) SELECT REPLACE(UUID(),'-',''),'" + adCode + "','" + name + "','" + center + "','" + father + "','" + PinYinUtil.chineseToPinYinSToLowerCase(name) + "','" + PinYinUtil.chineseToPinYin(name) + "','" + PinYinUtil.chineseToPinYinSToUpperCase(name) + "' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM yy_system_city WHERE cityID = '"+adCode+"');";
+                System.out.println(sql);
+                String father2 = di.getAdcode();
+                List<District> list1 = di.getDistricts();
+                for (District dis: list1){
+                    adCode = dis.getAdcode();
+                    name = dis.getName();
+                    center = dis.getCenter();
+                    String sql_two = "INSERT INTO yy_system_city(uuid,cityID,city,father,center,short_pinyin,full_pinyin,city_no) SELECT REPLACE(UUID(),'-',''),'" + adCode + "','" + name + "','" + center + "','" + father2 + "','" + PinYinUtil.chineseToPinYinSToLowerCase(name) + "','" + PinYinUtil.chineseToPinYin(name) + "','" + PinYinUtil.chineseToPinYinSToUpperCase(name) + "' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM yy_system_city WHERE cityID = '"+adCode+"');";
+                    System.out.println(sql_two);
+                }
+
+            }
+        }
 
     }
 
